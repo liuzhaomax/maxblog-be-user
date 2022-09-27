@@ -7,10 +7,10 @@ import (
 	logger "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"gorm.io/gorm"
-	"maxblog-be-template/internal/conf"
-	"maxblog-be-template/internal/core"
-	"maxblog-be-template/src/pb"
-	"maxblog-be-template/src/service"
+	"maxblog-be-user/internal/conf"
+	"maxblog-be-user/internal/core"
+	"maxblog-be-user/src/pb"
+	"maxblog-be-user/src/service"
 	"net"
 	"os"
 	"os/signal"
@@ -60,14 +60,14 @@ func InitDB() (*gorm.DB, func(), error) {
 	return db, clean, err
 }
 
-func InitServer(ctx context.Context, service *service.BData) func() {
+func InitServer(ctx context.Context, service *service.BUser) func() {
 	cfg := conf.GetInstanceOfConfig()
 	host := flag.String("host", cfg.Server.Host, "Enter host")
 	port := flag.Int("port", cfg.Server.Port, "Enter port")
 	flag.Parse()
 	addr := fmt.Sprintf("%s:%d", *host, *port)
 	server := grpc.NewServer()
-	pb.RegisterDataServiceServer(server, service)
+	pb.RegisterUserServiceServer(server, service)
 	go func() {
 		listen, err := net.Listen("tcp", addr)
 		if err != nil {

@@ -15,7 +15,7 @@ pipeline {
         harborUsername = "admin"
         harborPassword = "Harbor12345"
         harborAddress = "10.192.0.5:9002"
-        harborRepo = "maxblog-be-template"
+        harborRepo = "maxblog-be-user"
     }
     // 流水线阶段
     stages {
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo "--------------------- Checkout Start ---------------------"
                 timeout(time: 5, unit: "MINUTES"){
-                    checkout([$class: "GitSCM", branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: "https://github.com/liuzhaomax/maxblog-be-template.git"]]])
+                    checkout([$class: "GitSCM", branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: "https://github.com/liuzhaomax/maxblog-be-user.git"]]])
                 }
                 echo "--------------------- Checkout End ---------------------"
             }

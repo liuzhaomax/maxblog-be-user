@@ -4,7 +4,7 @@ import (
 	"fmt"
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"maxblog-be-template/internal/core"
+	"maxblog-be-user/internal/core"
 	"sync"
 )
 

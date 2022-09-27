@@ -7,9 +7,9 @@
 package app
 
 import (
-	"maxblog-be-template/internal/core"
-	"maxblog-be-template/src/model"
-	"maxblog-be-template/src/service"
+	"maxblog-be-user/internal/core"
+	"maxblog-be-user/src/model"
+	"maxblog-be-user/src/service"
 )
 
 // Injectors from wire.go:
@@ -19,21 +19,21 @@ func InitInjector() (*Injector, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	mData := &model.MData{
+	mUser := &model.MUser{
 		DB: db,
 	}
 	trans := &core.Trans{
 		DB: db,
 	}
 	logger := &core.Logger{}
-	bData := &service.BData{
-		MData:   mData,
+	bUser := &service.BUser{
+		MUser:   mUser,
 		Tx:      trans,
 		ILogger: logger,
 	}
 	injector := &Injector{
 		DB:      db,
-		Service: bData,
+		Service: bUser,
 	}
 	return injector, func() {
 		cleanup()

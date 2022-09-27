@@ -3,15 +3,15 @@ logger:
   color: true
 
 app:
-  app_name: "maxblog-be-template"
+  app_name: "maxblog-be-user"
   version: "0.1.0"
 
 server:
   host: "127.0.0.1"
-  port: 9300
+  port: 9301
   shutdown_timeout: 10
   tags:
-    - maxblog-be-template
+    - maxblog-be-user
     - maxblog
 
 db:
@@ -25,7 +25,7 @@ db:
 mysql:
   host: "127.0.0.1"
   port: 3306
-  db_name: "maxblog_be_template"
+  db_name: "maxblog_be_user"
   user_name: "root"
   password: "123456"
   params: "charset=utf8mb4&parseTime=True&loc=Local"

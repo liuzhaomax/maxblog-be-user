@@ -8,8 +8,8 @@ import (
 	gormLogger "gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"io"
-	"maxblog-be-template/internal/core"
-	"maxblog-be-template/src/model"
+	"maxblog-be-user/internal/core"
+	"maxblog-be-user/src/model"
 	"os"
 	"strings"
 	"time"
@@ -73,7 +73,7 @@ func (cfg *Config) AutoMigrate(db *gorm.DB) error {
 	if dbType == "mysql" {
 		db = db.Set("gorm:table_options", "ENGINE=InnoDB")
 	}
-	err := db.AutoMigrate(new(model.Data))
+	err := db.AutoMigrate(new(model.User))
 	if err != nil {
 		return err
 	}
@@ -82,10 +82,12 @@ func (cfg *Config) AutoMigrate(db *gorm.DB) error {
 }
 
 func (cfg *Config) createAdmin(db *gorm.DB) {
-	var data model.Data
-	db.First(&data)
-	if data.ID != 1 {
-		data.Mobile = "130123456789"
-		db.Create(&data)
+	var user model.User
+	result := db.Model(user).Limit(1).Find(&user)
+	if result.RowsAffected == 0 {
+		user.Mobile = "130123456789"
+		user.NickName = "Admin"
+		user.Role = 2
+		db.Create(&user)
 	}
 }

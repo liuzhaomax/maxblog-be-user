@@ -1,4 +1,4 @@
-module maxblog-be-template
+module maxblog-be-user
 
 go 1.19
 

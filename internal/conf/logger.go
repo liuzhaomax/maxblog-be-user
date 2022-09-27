@@ -3,7 +3,7 @@ package conf
 import (
 	"github.com/sirupsen/logrus"
 	"io"
-	"maxblog-be-template/internal/core"
+	"maxblog-be-user/internal/core"
 	"os"
 )
 
