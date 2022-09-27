@@ -1,0 +1,40 @@
+run_mode: "release"
+logger:
+  color: false
+
+app:
+  app_name: "maxblog-be-template"
+  version: "0.1.0"
+
+server:
+  host: "0.0.0.0"
+  port: 9300
+  shutdown_timeout: 10
+  tags:
+    - maxblog-be-template
+    - maxblog
+
+db:
+  type: "mysql"
+  debug: false
+  dsn: ""
+  max_life_time: 8192
+  max_open_conns: 0
+  max_idle_conns: 1000
+
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  db_name: "maxblog_be_template"
+  user_name: "root"
+  password: "LZsb_Pa55w0rd"
+  params: "charset=utf8mb4&parseTime=True&loc=Local"
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+
+consul:
+  host: "127.0.0.1"
+  port: 8500
+
