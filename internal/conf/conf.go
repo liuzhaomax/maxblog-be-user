@@ -88,4 +88,6 @@ func (cfg *Config) Load(configFile string) {
 			"失败方法": core.GetFuncName(),
 		}).Panic(core.FormatError(901, err).Error())
 	}
+	// 设置密钥或加密方式
+	core.SetPwdEncodingOpts()
 }

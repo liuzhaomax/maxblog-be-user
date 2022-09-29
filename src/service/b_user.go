@@ -34,19 +34,29 @@ func (bUser *BUser) GetUserById(ctx context.Context, req *pb.IdRequest) (*pb.Use
 	return res, nil
 }
 
-func (bUser *BUser) PostLogin(ctx context.Context, req *pb.LoginRequest) (*pb.LoginRes, error) {
+func (bUser *BUser) ValidateLoginInfo(ctx context.Context, req *pb.LoginRequest) (*pb.LoginRes, error) {
 	var user model.User
 	err := bUser.MUser.QueryLoginByMobile(req, &user)
 	if err != nil {
 		bUser.ILogger.LogFailure(core.GetFuncName(), err)
 		return nil, err
 	}
-	if req.Password != user.Password {
-		bUser.ILogger.LogFailure(core.GetFuncName(), core.FormatError(701, nil))
-		return nil, core.FormatError(701, nil)
+	if user.Salt == EmptyStr {
+		return nil, core.FormatError(702, nil)
 	}
-	var res *pb.LoginRes
-	res.Result = true
+	if user.Password == EmptyStr {
+		return nil, core.FormatError(703, nil)
+	}
 	bUser.ILogger.LogSuccess(core.GetFuncName())
-	return res, nil
+	return &pb.LoginRes{EncodedPwd: user.Password, Salt: user.Salt}, nil
+}
+
+func (bUser *BUser) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.SuccessRes, error) {
+	user := model.PB2Model(req)
+	err := bUser.MUser.CreateUser(user)
+	if err != nil {
+		bUser.ILogger.LogFailure(core.GetFuncName(), err)
+		return nil, err
+	}
+	return &pb.SuccessRes{Result: true}, nil
 }

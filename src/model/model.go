@@ -23,10 +23,17 @@ func Model2PB(user *User) *pb.UserRes {
 	userRes := &pb.UserRes{
 		Id:       uint32(user.ID),
 		Mobile:   user.Mobile,
-		Password: user.Password,
 		NickName: user.NickName,
-		Salt:     user.Salt,
 		Role:     user.Role,
 	}
 	return userRes
+}
+
+func PB2Model(userReq *pb.CreateUserRequest) *User {
+	var user User
+	user.Mobile = userReq.Mobile
+	user.Password = userReq.Password
+	user.NickName = userReq.NickName
+	user.Salt = userReq.Salt
+	return &user
 }

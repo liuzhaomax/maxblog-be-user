@@ -85,8 +85,11 @@ func (cfg *Config) createAdmin(db *gorm.DB) {
 	var user model.User
 	result := db.Model(user).Limit(1).Find(&user)
 	if result.RowsAffected == 0 {
+		salt, encodedPwd := core.GetEncodedPwd("LZsb_Pa55w0rd")
 		user.Mobile = "130123456789"
+		user.Password = encodedPwd
 		user.NickName = "Admin"
+		user.Salt = salt
 		user.Role = 2
 		db.Create(&user)
 	}
