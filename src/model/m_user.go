@@ -20,3 +20,19 @@ func (mUser *MUser) QueryUserById(req *pb.IdRequest, user *User) error {
 	}
 	return nil
 }
+
+func (mUser *MUser) QueryLoginByMobile(req *pb.LoginRequest, user *User) error {
+	result := mUser.DB.Where("mobile=?", req.Mobile).First(user)
+	if result.RowsAffected == 0 {
+		return core.FormatError(803, nil)
+	}
+	return nil
+}
+
+func (mUser *MUser) CreateUser(user *User) error {
+	result := mUser.DB.Create(user)
+	if result.Error != nil {
+		return core.FormatError(803, result.Error)
+	}
+	return nil
+}

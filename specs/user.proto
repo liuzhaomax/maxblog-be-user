@@ -4,6 +4,8 @@ option go_package="/pb";
 
 service UserService {
     rpc GetUserById(IdRequest) returns (UserRes);
+    rpc ValidateLoginInfo(LoginRequest) returns (LoginRes);
+    rpc CreateUser(CreateUserRequest) returns (SuccessRes);
 }
 
 message IdRequest {
@@ -13,8 +15,27 @@ message IdRequest {
 message UserRes {
     uint32 id=1;
     string mobile=2;
-    string password=3;
-    string nickName=4;
-    string salt=5;
-    uint32 role=6;
+    string nickName=3;
+    uint32 role=4;
+}
+
+message LoginRequest {
+    string mobile=1;
+    string password=2;
+}
+
+message LoginRes {
+    string encodedPwd=1;
+    string salt=2;
+}
+
+message CreateUserRequest {
+    string mobile=1;
+    string password=2;
+    string nickName=3;
+    string salt=4;
+}
+
+message SuccessRes {
+    bool result=1;
 }

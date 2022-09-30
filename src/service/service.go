@@ -5,3 +5,7 @@ import "github.com/google/wire"
 var ServiceSet = wire.NewSet(
 	UserSet,
 )
+
+const (
+	EmptyStr = ""
+)
